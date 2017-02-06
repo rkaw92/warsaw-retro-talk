@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SOA and REST - Tying the knot</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Shower Theme -->
+    <link rel="stylesheet" href="vendors/shower-ribbon/styles/screen-16x10.css" />
+    <link rel="stylesheet" href="vendors/shower-warsawjs/styles/main.css" />
+
+    <!-- Prism.js -->
+    <link rel="stylesheet" href="vendors/prism/prism.css" />
+    <link rel="stylesheet" href="vendors/prism/custom-prism.css" />
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="vendors/highlight.js/default.min.css" />
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="custom/style.css" />
+</head>
+<body class="shower list higher">
+	<header class="caption">
+		<h1>Retro JS talk: modern browser communications</h1>
+		<p>Or how easy it is to implement interactive apps and how we got here.</p>
+	</header>
+
+	<section class="slide front-page">
+		<div class="logo">
+			<!-- Logo WarsawJS -->
+			<img src="pictures/logo/warsawjs-logo-light.png">
+		</div>
+		<div class="details">
+			<!-- 1. Avatar -->
+			<img src="pictures/robert.jpg" alt="Robert Kawecki (speaker)" />
+
+			<!-- 2. Speaker -->
+			<h2>Robert Kawecki</h2>
+
+			<!-- 3. Presentation title -->
+			<h2><strong>"Retro JS talk: modern browser communications"</strong></h2>
+
+			<!-- 4. Presentation date -->
+			<h2>2017-02-08</h2>
+
+			<!-- 5. Contact the speaker -->
+			<h2><a href="https://github.com/rkaw92">github.com/rkaw92</a></h2>
+
+			<!-- Listen, learn, read on. -->
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>What does it take to talk?</h2>
+		<ul>
+			<li>Speaking (requests)</li>
+      <li>Listening (responses / updates)</li>
+		</ul>
+	</section>
+
+  <section class="slide">
+		<h2>The Dark Ages</h2>
+		<ul>
+			<li>No XHR - just forms</li>
+      <li>PHP/FI or own CGI</li>
+      <li>(i)frames with user polls</li>
+		</ul>
+	</section>
+
+  <section class="slide">
+		<h2>Work-arounds</h2>
+		<ul>
+			<li>GET as data-sending mechanism</li>
+      <li>Update delivery: infinite &lt;script&gt;</li>
+      <li>No error handling</li>
+		</ul>
+	</section>
+
+  <section class="slide">
+		<h2>Enter XMLHttpRequest</h2>
+		<ul>
+			<li>Wind to the Web 2.0 sails<ul>
+        <li>Thanks, <a href="https://msdn.microsoft.com/en-us/library/ms537505(v=vs.85).aspx">IE 5</a>!</li>
+      </ul></li>
+      <li>Event-driven asynchronous requests</li>
+      <li>Used by most single-page apps and REST clients</li>
+		</ul>
+	</section>
+
+  <!-- TODO: code -->
+
+  <section class="slide">
+		<h2>XHR world problems</h2>
+		<ul>
+      <li>Cumbersome name, not really related to XML</li>
+      <li>HTTP Pipelining<ul>
+        <li>JSON-RPC 2.0 bulk request</li>
+      </ul></li>
+		</ul>
+	</section>
+
+  <section class="slide">
+    <h2>Long polling (Comet)</h2>
+    <ul>
+      <li>XHR that waits for server response</li>
+      <li>One request for every update ("dead time")</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>When in doubt, simplify</h2>
+    <ul>
+      <li>Server-sent events since Firefox 6 (2011)</li>
+      <li>Simple format, auto-reconnect</li>
+      <li>No IE/Edge support</li>
+      <li>Updates only</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Sockets for the masses</h2>
+    <ul>
+      <li>Bi-directional full-duplex goodness</li>
+      <li>Persistent connection, low overhead</li>
+      <li>No request-response requirement</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>The difficulty</h2>
+    <ul>
+      <li>Manual reconnection and state management<ul>
+        <li>Socket object non-reusable</li>
+      </ul></li>
+      <li>Non-obvious REST implementation</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Libraries to the rescue</h2>
+    <ul>
+      <li><a href="http://socket.io">socket.io</a></li>
+      <li><a href="http://sockjs.org">SockJS</a></li>
+      <li><a href="http://meteor.com">Meteor</a></li>
+      <li><a href="https://github.com/greatcare/esdf-ws-client">esdf-ws-client</a></li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Thanks</h2>
+    <ul>
+      <li>TODO</li>
+    </ul>
+  </section>
+
+	<div class="progress"></div>
+
+	<footer class="badge">
+		<a href="https://github.com/warsawjs/warsawjs-slides-template">Fork me on GitHub</a>
+	</footer>
+
+	<footer class="badge badge-down">
+		<a href="#" class="fullscreen">Fullscreen</a>
+	</footer>
+
+	<script src="vendors/gamepad/gamepad.js"></script>
+	<script src="vendors/shower/shower.min.js"></script>
+	<script src="vendors/shower-gamepad/shower.gamepad.js"></script>
+	<script src="modules/fullscreen.js"></script>
+
+	<!-- Prism.js -->
+	<script src="vendors/prism/prism.js"></script>
+	<script src="vendors/prism/custom-prism.js"></script>
+
+	<!-- Highlight.js -->
+	<script src="vendors/highlight.js/highlight.min.js"></script>
+	<script>
+		hljs.initHighlightingOnLoad();
+	</script>
+</body>
+</html>
