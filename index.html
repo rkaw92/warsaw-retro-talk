@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SOA and REST - Tying the knot</title>
+    <title>Modern browser communications</title>
 
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -79,6 +79,19 @@
 	</section>
 
   <section class="slide">
+    <h2>:-(</h2>
+    <pre class="code-sample"><code>
+      &lt;script type="text/javascript" language="JavaScript"&gt;
+        function processUpdates(updates) {
+          // ...
+          document.write('&lt;script src="/updates/js" type="text/javascript" language="JavaScript"&gt;&lt;/script&gt;');
+        }
+      &lt;/script&gt;
+      &lt;script src="/updates/js" type="text/javascript" language="JavaScript"&gt;&lt;/script&gt;
+    </code></pre>
+  </section>
+
+  <section class="slide">
 		<h2>Enter XMLHttpRequest</h2>
 		<ul>
 			<li>Wind to the Web 2.0 sails<ul>
@@ -89,17 +102,17 @@
 		</ul>
 	</section>
 
-  <!-- TODO: code -->
-
   <section class="slide">
-		<h2>XHR world problems</h2>
-		<ul>
-      <li>Cumbersome name, not really related to XML</li>
-      <li>HTTP Pipelining<ul>
-        <li>JSON-RPC 2.0 bulk request</li>
-      </ul></li>
-		</ul>
-	</section>
+    <h2>:-)</h2>
+    <pre class="code-sample"><code>
+      var req = new XMLHttpRequest();
+      req.open('GET', '/updates/xhr', true); // async
+      req.onreadystatechange = function() {
+        // ...
+      };
+      req.send();
+    </code></pre>
+  </section>
 
   <section class="slide">
     <h2>Long polling (Comet)</h2>
@@ -108,6 +121,32 @@
       <li>One request for every update ("dead time")</li>
     </ul>
   </section>
+
+  <section class="slide">
+    <h2>Active listening</h2>
+    <pre class="code-sample"><code>
+      req.onreadystatechange = function() {
+        if (req.readyState === 4) {
+          if (req.status === 200) {
+            // Process the response and...
+            poll();
+          } else {
+            setTimeout(poll, 5000);
+          }
+        }
+      }
+    </code></pre>
+  </section>
+
+  <section class="slide">
+		<h2>XHR issues</h2>
+		<ul>
+      <li>Cumbersome name, not really related to XML</li>
+      <li>HTTP Pipelining<ul>
+        <li>JSON-RPC 2.0 bulk request</li>
+      </ul></li>
+		</ul>
+	</section>
 
   <section class="slide">
     <h2>When in doubt, simplify</h2>
@@ -120,12 +159,35 @@
   </section>
 
   <section class="slide">
+    <h2>Server-sent Events</h2>
+    <pre class="code-sample"><code>
+      const updates = new EventSource('/updates/sse');
+      updates.onmessage = function(data) {};
+    </code></pre>
+  </section>
+
+  <section class="slide">
     <h2>Sockets for the masses</h2>
     <ul>
       <li>Bi-directional full-duplex goodness</li>
       <li>Persistent connection, low overhead</li>
       <li>No request-response requirement</li>
     </ul>
+  </section>
+
+  <section class="slide">
+    <h2>WebSocket</h2>
+    <pre class="code-sample"><code>
+      const socket = new WebSocket('/updates/ws');
+      socket.addEventListener('message', myMessageHandler);
+      socket.addEventListener('open', function() {
+        socket.send('hey, got any data?');
+      });
+      socket.addEventListener('error', function(error) {
+        // Oops...
+      });
+      socket.open();
+    </code></pre>
   </section>
 
   <section class="slide">
@@ -149,9 +211,9 @@
   </section>
 
   <section class="slide">
-    <h2>Thanks</h2>
+    <h2></h2>
     <ul>
-      <li>TODO</li>
+      <li></li>
     </ul>
   </section>
 
